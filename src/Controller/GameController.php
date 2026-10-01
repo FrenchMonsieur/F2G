@@ -11,9 +11,10 @@ final class GameController extends AbstractController
     #[Route('/', name: 'app_game')]
     public function index(FreeToGameClient $freeToGameClient): Response
     {
-        dd($freeToGameClient->getGames());
+        $games = $freeToGameClient->getGames();
         return $this->render('game/index.html.twig', [
-            'controller_name' => 'GameController',
+            'games' => $games,
         ]);
     }
 }
+

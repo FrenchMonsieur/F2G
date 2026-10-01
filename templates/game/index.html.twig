@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GameController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/dev/F2G/src/Controller/GameController.php</code></li>
-        <li>Your template at <code>C:/dev/F2G/templates/game/index.html.twig</code></li>
-    </ul>
-</div>
+    {% for game in games %}
+        <div class="game">
+            <h2>{{ game.title }}</h2>
+            <img src="{{ game.thumbnail }}" alt="{{ game.title }} thumbnail">
+            <p>{{ game.short_description }}</p>
+            <p>Genre: {{ game.genre }}</p>
+            <p>Platform: {{ game.platform }}</p>
+            <p>Publisher: {{ game.publisher }}</p>
+            <p>Developer: {{ game.developer }}</p>
+            <p>Release Date: {{ game.release_date }}</p>
+            <a href="{{ freetogame_profile_url }}" rel="noopener noreferrer" target="_blank">More Info</a>
+        </div>
+    {% endfor %}
 {% endblock %}
