@@ -1,18 +1,93 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="filter">
+    <form method="get" >
 
+        <label for="platform">Platform:</label>
+        <select name="platform" id="platform">
+    <option value="">All</option>
+    <option value="pc" {% if platform == 'pc' %}selected{% endif %}>PC</option>
+    <option value="browser" {% if platform == 'browser' %}selected{% endif %}>Browser</option>
+</select>
+        
+
+        <label for="category">Category:</label>
+<select name="category" id="category">
+    <option value="">All</option>
+    <option value="mmorpg" {% if category == 'mmorpg' %}selected{% endif %}>MMORPG</option>
+    <option value="shooter" {% if category == 'shooter' %}selected{% endif %}>Shooter</option>
+    <option value="strategy" {% if category == 'strategy' %}selected{% endif %}>Strategy</option>
+    <option value="moba" {% if category == 'moba' %}selected{% endif %}>MOBA</option>
+    <option value="racing" {% if category == 'racing' %}selected{% endif %}>Racing</option>
+    <option value="sports" {% if category == 'sports' %}selected{% endif %}>Sports</option>
+    <option value="social" {% if category == 'social' %}selected{% endif %}>Social</option>
+    <option value="sandbox" {% if category == 'sandbox' %}selected{% endif %}>Sandbox</option>
+    <option value="open-world" {% if category == 'open-world' %}selected{% endif %}>Open World</option>
+    <option value="survival" {% if category == 'survival' %}selected{% endif %}>Survival</option>
+    <option value="pvp" {% if category == 'pvp' %}selected{% endif %}>PvP</option>
+    <option value="pve" {% if category == 'pve' %}selected{% endif %}>PvE</option>
+    <option value="pixel" {% if category == 'pixel' %}selected{% endif %}>Pixel</option>
+    <option value="voxel" {% if category == 'voxel' %}selected{% endif %}>Voxel</option>
+    <option value="zombie" {% if category == 'zombie' %}selected{% endif %}>Zombie</option>
+    <option value="turn-based" {% if category == 'turn-based' %}selected{% endif %}>Turn-Based</option>
+    <option value="first-person" {% if category == 'first-person' %}selected{% endif %}>First Person</option>
+    <option value="third-person" {% if category == 'third-person' %}selected{% endif %}>Third Person</option>
+    <option value="top-down" {% if category == 'top-down' %}selected{% endif %}>Top-Down</option>
+    <option value="tank" {% if category == 'tank' %}selected{% endif %}>Tank</option>
+    <option value="space" {% if category == 'space' %}selected{% endif %}>Space</option>
+    <option value="sailing" {% if category == 'sailing' %}selected{% endif %}>Sailing</option>
+    <option value="side-scroller" {% if category == 'side-scroller' %}selected{% endif %}>Side Scroller</option>
+    <option value="superhero" {% if category == 'superhero' %}selected{% endif %}>Superhero</option>
+    <option value="permadeath" {% if category == 'permadeath' %}selected{% endif %}>Permadeath</option>
+    <option value="card" {% if category == 'card' %}selected{% endif %}>Card Game</option>
+    <option value="battle-royale" {% if category == 'battle-royale' %}selected{% endif %}>Battle Royale</option>
+    <option value="mmo" {% if category == 'mmo' %}selected{% endif %}>MMO</option>
+    <option value="mmofps" {% if category == 'mmofps' %}selected{% endif %}>MMOFPS</option>
+    <option value="mmotps" {% if category == 'mmotps' %}selected{% endif %}>MMOTPS</option>
+    <option value="3d" {% if category == '3d' %}selected{% endif %}>3D</option>
+    <option value="2d" {% if category == '2d' %}selected{% endif %}>2D</option>
+    <option value="anime" {% if category == 'anime' %}selected{% endif %}>Anime</option>
+    <option value="fantasy" {% if category == 'fantasy' %}selected{% endif %}>Fantasy</option>
+    <option value="sci-fi" {% if category == 'sci-fi' %}selected{% endif %}>Sci-Fi</option>
+    <option value="fighting" {% if category == 'fighting' %}selected{% endif %}>Fighting</option>
+    <option value="action-rpg" {% if category == 'action-rpg' %}selected{% endif %}>Action RPG</option>
+    <option value="action" {% if category == 'action' %}selected{% endif %}>Action</option>
+    <option value="military" {% if category == 'military' %}selected{% endif %}>Military</option>
+    <option value="martial-arts" {% if category == 'martial-arts' %}selected{% endif %}>Martial Arts</option>
+    <option value="flight" {% if category == 'flight' %}selected{% endif %}>Flight</option>
+    <option value="low-spec" {% if category == 'low-spec' %}selected{% endif %}>Low-Spec</option>
+    <option value="tower-defense" {% if category == 'tower-defense' %}selected{% endif %}>Tower Defense</option>
+    <option value="horror" {% if category == 'horror' %}selected{% endif %}>Horror</option>
+    <option value="mmorts" {% if category == 'mmorts' %}selected{% endif %}>MMORTS</option>
+</select>
+
+        <label for="sort-by">Sort by:</label>
+        <select name="sort-by" id="sort-by">
+            <option value="">Default</option>
+            <option value="alphabetical" {% if sort == 'alphabetical' %}selected{% endif %}>Alphabetical</option>
+            <option value="release_date" {% if sort == 'release_date' %}selected{% endif %}>Release Date</option>
+            <option value="popularity" {% if sort == 'popularity' %}selected{% endif %}>Popularity</option>
+            <option value="relevance" {% if sort == 'relevance' %}selected{% endif %}>Relevance</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    </div>
+    <div class="games">
     {% for game in games %}
+    
         <div class="game">
             <h2>{{ game.title }}</h2>
             <img src="{{ game.thumbnail }}" alt="{{ game.title }} thumbnail">
-            <p>{{ game.short_description }}</p>
             <p>Genre: {{ game.genre }}</p>
+            <p>{{ game.short_description }}</p>
             <p>Platform: {{ game.platform }}</p>
             <p>Publisher: {{ game.publisher }}</p>
             <p>Developer: {{ game.developer }}</p>
             <p>Release Date: {{ game.release_date }}</p>
-            <a href="{{ freetogame_profile_url }}" rel="noopener noreferrer" target="_blank">More Info</a>
+            <a href="{{ game.freetogame_profile_url }}" rel="noopener noreferrer" target="_blank">More Info</a>
         </div>
     {% endfor %}
+    </div>
 {% endblock %}

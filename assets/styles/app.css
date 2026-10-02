@@ -1,3 +1,225 @@
+/* =========================================================
+   F2G — thème « BD du journal du dimanche »
+   Papier jauni, trames de points, cases de BD à l'encre noire,
+   écriture façon lettrage à la main.
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Patrick+Hand+SC&display=swap");
+
+/* ---------- Variables ---------- */
+:root {
+    --papier: #fbf6e9;
+    --papier-fonce: #efe6cf;
+    --encre: #1a1a1a;
+    --rouge: #d7263d;
+    --jaune: #f9c80e;
+    --bleu: #1b6ca8;
+    --vert: #3e8e41;
+
+    --trait: 3px solid var(--encre);
+    --ombre: 5px 5px 0 var(--encre);
+    --rayon: 6px;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: skyblue;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--encre);
+    font-family: "Patrick Hand", "Comic Sans MS", cursive;
+    font-size: 1.15rem;
+    line-height: 1.35;
+    /* Papier journal + trame de points façon impression */
+    background-color: var(--papier);
+    background-image: radial-gradient(rgba(26, 26, 26, 0.08) 1px, transparent 1.2px);
+    background-size: 14px 14px;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: var(--bleu);
+}
+
+:focus-visible {
+    outline: 3px dashed var(--rouge);
+    outline-offset: 3px;
+}
+
+/* ---------- Titre principal (si tu ajoutes un <h1>) ---------- */
+h1 {
+    font-family: "Patrick Hand SC", "Patrick Hand", cursive;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    text-align: center;
+    margin: 32px 16px 8px;
+    letter-spacing: 0.04em;
+}
+
+/* Effet « surligné au feutre » */
+h1 span,
+h1 mark {
+    background: linear-gradient(transparent 55%, var(--jaune) 55%);
+    color: inherit;
+    padding: 0 0.15em;
+}
+
+/* ---------- Grille des jeux ---------- */
+.games {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 32px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 24px auto 48px;
+    padding: 0 16px;
+}
+
+/* ---------- Une carte = une case de BD ---------- */
+.game {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: #fff;
+    border: var(--trait);
+    border-radius: var(--rayon);
+    box-shadow: var(--ombre);
+    padding: 14px 14px 18px;
+    /* Les cases sont légèrement de travers, comme collées à la main */
+    transform: rotate(-0.8deg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game:nth-child(2n) {
+    transform: rotate(0.7deg);
+}
+
+.game:nth-child(3n) {
+    transform: rotate(-0.3deg);
+}
+
+.game:hover,
+.game:focus-within {
+    transform: rotate(0deg) translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--encre);
+}
+
+/* Titre du jeu, en lettrage BD */
+.game h2 {
+    order: -1; /* au cas où le titre n'est pas en premier */
+    margin: 0 0 6px;
+    font-family: "Patrick Hand SC", "Patrick Hand", cursive;
+    font-size: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+}
+
+/* Vignette encadrée comme une case dans la case */
+.game img {
+    width: 100%;
+    aspect-ratio: 365 / 206;
+    object-fit: cover;
+    border: 2px solid var(--encre);
+    border-radius: 3px;
+    background: var(--papier-fonce);
+    margin-bottom: 8px;
+}
+
+/* Lignes d'infos (genre, plateforme, éditeur…) */
+.game p {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+/* La première info (le genre) devient une étiquette jaune */
+.game p:first-of-type {
+    align-self: flex-start;
+    background: var(--jaune);
+    border: 2px solid var(--encre);
+    border-radius: 999px;
+    padding: 0 12px;
+    margin-bottom: 4px;
+    transform: rotate(-2deg);
+}
+
+/* ---------- Le lien « More Info » en bulle de dialogue ---------- */
+.game a {
+    position: relative;
+    align-self: flex-end;
+    margin-top: auto;
+    padding: 6px 16px;
+    background: #fff;
+    color: var(--encre);
+    text-decoration: none;
+    border: 2px solid var(--encre);
+    border-radius: 18px;
+    transition: background 0.15s ease;
+}
+
+/* Petite queue de la bulle */
+.game a::after {
+    content: "";
+    position: absolute;
+    left: 18px;
+    bottom: -10px;
+    width: 14px;
+    height: 14px;
+    background: inherit;
+    border-right: 2px solid var(--encre);
+    border-bottom: 2px solid var(--encre);
+    transform: skewX(35deg) rotate(45deg);
+}
+
+.game a:hover {
+    background: var(--jaune);
+}
+
+/* Petit espace sous la bulle pour la queue */
+.game {
+    padding-bottom: 26px;
+}
+
+/* ---------- Footer ---------- */
+footer {
+    margin-top: auto;
+    padding: 20px 16px 28px;
+    text-align: center;
+    border-top: 3px dashed var(--encre);
+    background: var(--papier-fonce);
+}
+
+footer a {
+    color: var(--rouge);
+    font-weight: bold;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+    .games {
+        gap: 24px;
+    }
+
+    .game,
+    .game:nth-child(2n),
+    .game:nth-child(3n) {
+        transform: none;
+    }
+}
+
+/* ---------- Respect des préférences d'animation ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .game,
+    .game a {
+        transition: none;
+    }
 }
