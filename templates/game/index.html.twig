@@ -66,7 +66,7 @@
         <select name="sort-by" id="sort-by">
             <option value="">Default</option>
             <option value="alphabetical" {% if sort == 'alphabetical' %}selected{% endif %}>Alphabetical</option>
-            <option value="release_date" {% if sort == 'release_date' %}selected{% endif %}>Release Date</option>
+            <option value="release-date" {% if sort == 'release-date' %}selected{% endif %}>Release Date</option>
             <option value="popularity" {% if sort == 'popularity' %}selected{% endif %}>Popularity</option>
             <option value="relevance" {% if sort == 'relevance' %}selected{% endif %}>Relevance</option>
         </select>
@@ -86,8 +86,26 @@
             <p>Publisher: {{ game.publisher }}</p>
             <p>Developer: {{ game.developer }}</p>
             <p>Release Date: {{ game.release_date }}</p>
-            <a href="{{ game.freetogame_profile_url }}" rel="noopener noreferrer" target="_blank">More Info</a>
+            <a href="{{ path('app_game_detail', { id: game.id }) }}">More Info</a>
         </div>
     {% endfor %}
     </div>
+    {% if totalPages > 1 %}
+        <div class="pagination">
+            {% for i in 1..totalPages %}
+                <a href="{{ path('app_game', { page: i, platform: platform, category: category, 'sort-by': sort }) }}" {% if i == page %}class="active"{% endif %}>{{ i }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="pagination">
+    {% if page > 1 %}
+        <a href="{{ path('app_game', { page: page - 1, platform: platform, category: category, 'sort-by': sort }) }}" class="btn">Précédent</a>
+    {% endif %}
+
+    {% if page < totalPages %}
+        <a href="{{ path('app_game', { page: page + 1, platform: platform, category: category, 'sort-by': sort }) }}" class="btn btn-primary">Suivant</a>
+    {% else %}
+        <button class="btn" disabled>Suivant</button>
+    {% endif %}
+</div>
 {% endblock %}

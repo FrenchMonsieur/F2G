@@ -28,4 +28,20 @@ class FreeToGameClient
             return $response->toArray();
         });
     }
+
+    public function getGame(int $id): ?array
+    {
+        $cleCache = 'game_' . $id;
+        return $this->cache->get($cleCache, function (ItemInterface $item) use ($id) {
+            $item->expiresAfter(86400);
+            try {
+                $response = $this->httpClient->request('GET', 'https://www.freetogame.com/api/game', [
+                    'query' => ['id' => $id],
+                ]);
+                return $response->toArray();
+            } catch (\Exception $e) {
+                return null;
+            }
+        });
+    }
 }

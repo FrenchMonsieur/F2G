@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="game game-detail">
+            <h2>{{ game.title }}</h2>
+            <img src="{{ game.thumbnail }}" alt="{{ game.title }} thumbnail">
+            <p>Genre: {{ game.genre }}</p>
+            <p>{{ game.description|nl2br }}</p>
+            {% if game.minimum_system_requirements is defined  %}
+                <h3>Minimum System Requirements:</h3>
+                <ul>
+                    <li>OS: {{ game.minimum_system_requirements.os }}</li>
+                    <li>Processor: {{ game.minimum_system_requirements.processor }}</li>
+                    <li>Memory: {{ game.minimum_system_requirements.memory }}</li>
+                    <li>Graphics: {{ game.minimum_system_requirements.graphics }}</li>
+                    <li>Storage: {{ game.minimum_system_requirements.storage }}</li>
+                </ul>
+            {% endif %}
+            {% if game.screenshots is defined and game.screenshots is not empty %}
+                <h3>Screenshots:</h3>
+                <div class="screenshots">
+                    {% for screenshot in game.screenshots %}
+                        <img src="{{ screenshot.image }}" alt="Screenshot">
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <p>Platform: {{ game.platform }}</p>
+            <p>Publisher: {{ game.publisher }}</p>
+            <p>Developer: {{ game.developer }}</p>
+            <p>Release Date: {{ game.release_date }}</p>
+            <a href="{{ path('app_game') }}">Return to the list</a>
+        </div>
+        {% endblock %}
